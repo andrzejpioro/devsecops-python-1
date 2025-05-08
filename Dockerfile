@@ -3,7 +3,7 @@ WORKDIR /app
 COPY python/ .
 RUN pip install -r requirements.txt --upgrade
 RUN useradd -m myuser
-EXPOSE 5000
+EXPOSE 5001
 USER myuser
 CMD ["python", "helloworld.py"]
 
