@@ -25,3 +25,10 @@ jobs:
               tags: |
                ${{ vars.DOCKERHUB_USERNAME }}/helloworld:${{github.sha}}
                ${{ vars.DOCKERHUB_USERNAME }}/helloworld:latest
+          - run:
+               docker run -d -e GITHUB_TOKEN=${{vars.GITHUB_TOKEN}} -name -p 5001:50001 ${{ vars.DOCKERHUB_USERNAME }}/helloworld:${{github.sha}}
+          - run: docker ps | grep "${{ vars.DOCKERHUB_USERNAME }}/helloworld:${{github.sha}}"" 
+          - name: Checki if container is up and running
+            run: curl localhost:5001/healthz
+          - run: docker kill $(docker ps | grep "${{ vars.DOCKERHUB_USERNAME }}/helloworld:${{github.sha}}" | cut -d" " -f1)
+          - run: docker rm hello
