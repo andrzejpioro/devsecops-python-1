@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>{{ title }} </title>
+</head>
+<body>
+
+{% block content %}
+<h1>Repos for user: {{ username }}</h1>
+<table class="table table-striped">
+    <tr>
+        <th>Repo name:</th>
+        <th>URL</th>
+        <th>Default branch</th>
+        <th>Allow deletions</th>
+        <th>Allow force pushes</th>
+        <th>Secrets</th>
+    </tr>
+    {% for repo in repos %}
+    <tr>    
+        <td>{{ repo.name }}</td>
+        <td>{{ repo.url}} </td>
+        <td>{{ repo.default_branch }}</td>
+        <td>{{ repo.deletion_allowed }}</td>
+        <td>{{ repo.force_push_allowed }}</td>
+        <td>
+         {% for secret in repo.secrets %}
+            <p>{{ secret }}</p>
+         {% endfor %}
+        </td>
+   </tr>
+    {% else %}
+    <tr>
+        <td>No repos found</td>
+        <td></td>
+    </tr>
+    {% endfor %}
+
+</table>
+{% endblock %}
+
+</body>
+</html>
